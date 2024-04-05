@@ -23,4 +23,9 @@ class Event extends Model
     {
         return $this->belongsTo(User::class)->select(['id', 'name']);
     }
+
+    public function booking()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }
