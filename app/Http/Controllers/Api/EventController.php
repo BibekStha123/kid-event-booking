@@ -3,47 +3,91 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EventRequest;
+use App\Http\Resources\EventResource;
+use App\Models\Event;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('organizer')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $events = Event::where('date_time', '>', Carbon::now())->paginate(10);
+
+        return response([
+            'events' => EventResource::collection($events)
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $event = Event::create([
+            'user_id' => Auth::id(),
+            'name' => $data['name'],
+            'date_time' => $data['date_time'],
+            'location' =>  $data['location'],
+            'age' =>  $data['age'],
+            'amount' =>  $data['amount'],
+            'description' =>  $data['description'],
+        ]);
+
+        return response([
+            'message' => 'Event Created Successfully.',
+            'event' => $event
+        ], 200);
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Event $event)
     {
-        //
+        return response([
+            'event' => new EventResource($event)
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(EventRequest $request, Event $event)
     {
-        //
+        $data = $request->validated();
+
+        $updatedEvent = $event->update($data);
+
+        return response([
+            'message' => 'Event Updated Successfully.',
+            'event' => $updatedEvent
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Event $event)
     {
-        //
+        $event->delete();
+
+        return response([
+            'message' => 'Event Deleted Successfully.'
+        ], 200);
     }
 }
