@@ -1,3 +1,3 @@
-import Login from "./Login";
+import OrganizerDashboard from "./OrganizerDashboard";
 
-export { Login }
+export { OrganizerDashboard }

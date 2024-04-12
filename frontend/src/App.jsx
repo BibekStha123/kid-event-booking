@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       Kid's event booking system
-      <Routes />
+      {/* <Routes /> */}
     </>
   )
 }
