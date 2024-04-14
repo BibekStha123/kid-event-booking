@@ -1,3 +1,7 @@
 import OrganizerDashboard from "./OrganizerDashboard";
+import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
+import Footer from "./Footer";
 
-export { OrganizerDashboard }
+
+export { OrganizerDashboard, Navbar, Sidebar, Footer }

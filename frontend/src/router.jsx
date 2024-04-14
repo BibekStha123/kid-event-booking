@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import Organizer from "./layout/Organizer"
+import Organizer from "./organizer/layout/Organizer"
 import { OrganizerDashboard } from "./organizer/components";
-import Parent from "./layout/Parent";
+import Parent from "./parent/layout/Parent";
 import { Dashboard } from "./parent/components";
-import PublicLayout from "./layout/PublicLayout";
+import PublicLayout from "./publics/layout/PublicLayout";
 import { Login, Register } from "./publics/components";
 
 const router = createBrowserRouter([
