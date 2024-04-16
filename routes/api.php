@@ -17,9 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->group(function() {
+Route::middleware('auth:api')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
     Route::apiResource('/bookings', BookingController::class);
     Route::apiResource('/events', EventController::class);
+
+    Route::delete('/logout', [AuthController::class, 'logout']);
 });
 
 Route::controller(AuthController::class)->group(function () {

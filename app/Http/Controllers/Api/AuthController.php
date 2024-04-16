@@ -48,4 +48,14 @@ class AuthController extends Controller
             'message' => 'Credentials does not match.'
         ], 401);
     }
+
+    public function logout()
+    {
+        Auth::invalidate(true);
+        auth()->logout(true);
+
+        return response([
+            'message' => "Logged Out Successfully"
+        ], 200);
+    }
 }

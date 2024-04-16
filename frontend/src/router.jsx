@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Organizer from "./organizer/layout/Organizer"
-import { OrganizerDashboard } from "./organizer/components";
+import { Bookings, Events, OrganizerDashboard, Parents } from "./organizer/components";
 import Parent from "./parent/layout/Parent";
 import { Dashboard } from "./parent/components";
 import PublicLayout from "./publics/layout/PublicLayout";
@@ -10,7 +10,10 @@ const router = createBrowserRouter([
     {
         element: <Organizer />,
         children: [
-            { path: '/organizer-dashboard', element: <OrganizerDashboard /> }
+            { path: '/organizer-dashboard', element: <OrganizerDashboard /> },
+            { path: '/events', element: <Events /> },
+            { path: '/bookings', element: <Bookings /> },
+            { path: '/parents', element: <Parents /> },
         ]
     },
     {

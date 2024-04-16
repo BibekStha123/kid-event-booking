@@ -47,7 +47,6 @@ function Register() {
                 <div className="card">
                     <h2 className="text-center my-4">Register</h2>
                     <div className="card-body p-4 py-0">
-                        <ToastContainer position="top-center" />
                         {errors && <div>
                             {Object.keys(errors).map(key => (
                                 <p className='text-danger text-center' key={key}>{errors[key][0]}</p>

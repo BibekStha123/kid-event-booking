@@ -38,7 +38,6 @@ function Login(props) {
             <div className="card">
                 <h2 className="text-center my-4">Login</h2>
                 <div className="card-body p-4 py-0">
-                    <ToastContainer position="top-center"/>
                     <form onSubmit={loginHandler}>
                         <div className="form-group mb-3">
                             <label>Email address</label>

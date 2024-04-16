@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Footer(props) {
+function Parents(props) {
     return (
         <div>
-            
+            Parents
         </div>
     );
 }
 
-export default Footer;
+export default Parents;

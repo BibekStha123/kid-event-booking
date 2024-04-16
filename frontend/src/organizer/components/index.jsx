@@ -1,7 +1,8 @@
 import OrganizerDashboard from "./OrganizerDashboard";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import Footer from "./Footer";
+import Events from "./Events";
+import Bookings from "./Bookings";
+import Parents from "./Parents";
 
-
-export { OrganizerDashboard, Navbar, Sidebar, Footer }
+export { OrganizerDashboard, Navbar, Sidebar, Events, Bookings, Parents }
