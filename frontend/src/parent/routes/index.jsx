@@ -1,5 +1,5 @@
-import Parent from "../../layout/Parent";
 import { Dashboard } from "../components";
+import Parent from "../layout/Parent";
 
 export default function ParentRoutes() {
     return {

@@ -1,14 +1,9 @@
-import { useState } from 'react'
-import Routes from './routes/Routes'
+import Routes from './Routes/Routes'
 
 function App() {
 
-  return (
-    <>
-      Kid's event booking system
-      {/* <Routes /> */}
-    </>
-  )
+  return  <Routes />
+
 }
 
 export default App
