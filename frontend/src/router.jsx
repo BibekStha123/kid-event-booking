@@ -4,7 +4,7 @@ import { Bookings, Events, OrganizerDashboard, Parents } from "./organizer/compo
 import Parent from "./parent/layout/Parent";
 import { Dashboard } from "./parent/components";
 import PublicLayout from "./publics/layout/PublicLayout";
-import { Login, Register } from "./publics/components";
+import { Home, Login, Register } from "./publics/components";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +26,8 @@ const router = createBrowserRouter([
         element: <PublicLayout />,
         children: [
             { path: '/login', element: <Login /> },
-            { path: '/register', element: <Register /> }
+            { path: '/register', element: <Register /> },
+            { path: '/', element: <Home /> }
         ]
     }
 ]);

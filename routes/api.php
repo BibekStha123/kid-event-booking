@@ -21,6 +21,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    Route::get('/get-parents', [AuthController::class, 'getParents']);
     Route::apiResource('/bookings', BookingController::class);
     Route::apiResource('/events', EventController::class);
 

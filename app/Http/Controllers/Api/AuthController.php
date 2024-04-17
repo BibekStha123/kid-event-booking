@@ -58,4 +58,13 @@ class AuthController extends Controller
             'message' => "Logged Out Successfully"
         ], 200);
     }
+
+    public function getParents()
+    {
+        $parents = User::where('user_type', '=', 'parent')->paginate(10);
+
+        return response([
+            'parents' => UserResource::collection($parents)
+        ], 200);
+    }
 }

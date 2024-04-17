@@ -17,7 +17,10 @@ class BookingController extends Controller
     public function index()
     {
         //
+        $bookings = Booking::paginate(10);
+
         return response([
+            'bookings' => BookingResource::collection($bookings),
             'message' => 'Bookings displayed'
         ]);
     }
