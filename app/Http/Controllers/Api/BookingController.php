@@ -7,6 +7,7 @@ use App\Http\Requests\BookingRequest;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,16 +21,15 @@ class BookingController extends Controller
         $userId = Auth::id();
         $userType = User::whereId($userId)->first()->user_type;
 
-        if($userType === "organizer") {
+        if ($userType === "organizer") {
             $bookings = Booking::paginate(10);
         } else {
             $bookings = Booking::whereUserId($userId)->paginate(10);
         }
-        
+
         return response([
             'bookings' => BookingResource::collection($bookings),
-            'message' => 'Bookings displayed',
-            'userTYpe'=> $userType
+            'message' => 'Bookings displayed'
         ]);
     }
 
@@ -52,7 +52,6 @@ class BookingController extends Controller
         return response([
             'message' => 'Event Booked Successfully.'
         ], 200);
-
     }
 
     /**
@@ -79,5 +78,20 @@ class BookingController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function upcomingEvents()
+    {
+        $userId = Auth::id();
+
+        $currentDateTime = Carbon::now();
+        $upcomingEvents = Booking::whereUserId($userId)
+            ->whereHas('event', function ($query) use ($currentDateTime) {
+                $query->where('date_time', '>', $currentDateTime);
+            })->paginate(10);
+
+        return response([
+            'bookings' => BookingResource::collection($upcomingEvents)
+        ]);
     }
 }

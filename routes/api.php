@@ -23,6 +23,7 @@ Route::middleware('auth:api')->group(function () {
     });
     Route::get('/get-parents', [AuthController::class, 'getParents']);
     Route::apiResource('/bookings', BookingController::class);
+    Route::get('/upcoming-events', [BookingController::class, 'upcomingEvents']);
     Route::apiResource('/events', EventController::class);
 
     Route::delete('/logout', [AuthController::class, 'logout']);

@@ -8,14 +8,14 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axiosClient from '../../api/axios';
 
-function Bookings(props) {
+function UpcomingEvents(props) {
 
-    const [bookings, setBookings] = useState([]);
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        axiosClient.get('/bookings')
+        axiosClient.get('/upcoming-events')
             .then(({ data }) => {
-                setBookings(data.bookings)
+                setEvents(data.bookings)
             })
             .catch((error) => {
                 console.log(error)
@@ -30,6 +30,7 @@ function Bookings(props) {
                         <TableCell><strong> User Name</strong></TableCell>
                         <TableCell align="right"><strong>Event Name</strong></TableCell>
                         <TableCell align="right"><strong>Event Date</strong></TableCell>
+                        <TableCell align="right"><strong>Event Location</strong></TableCell>
                         <TableCell align="right"><strong>Child Name</strong></TableCell>
                         <TableCell align="right"><strong>Child Age</strong></TableCell>
                         <TableCell align="right"><strong>Special Needs</strong></TableCell>
@@ -37,20 +38,21 @@ function Bookings(props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {bookings.map((booking, index) => (
+                    {events.map((ev, index) => (
                         <TableRow
                             key={index}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
-                                {booking.user.name}
+                                {ev.user.name}
                             </TableCell>
-                            <TableCell align="right">{booking.event.name}</TableCell>
-                            <TableCell align="right">{booking.event.date_time}</TableCell>
-                            <TableCell align="right">{booking.child_name}</TableCell>
-                            <TableCell align="right">{booking.child_age}</TableCell>
-                            <TableCell align="right">{booking.special_needs}</TableCell>
-                            <TableCell align="right">{booking.emergency_contact_no}</TableCell>
+                            <TableCell align="right">{ev.event.name}</TableCell>
+                            <TableCell align="right">{ev.event.date_time}</TableCell>
+                            <TableCell align="right">{ev.event.location}</TableCell>
+                            <TableCell align="right">{ev.child_name}</TableCell>
+                            <TableCell align="right">{ev.child_age}</TableCell>
+                            <TableCell align="right">{ev.special_needs}</TableCell>
+                            <TableCell align="right">{ev.emergency_contact_no}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -59,4 +61,4 @@ function Bookings(props) {
     );
 }
 
-export default Bookings;
+export default UpcomingEvents;

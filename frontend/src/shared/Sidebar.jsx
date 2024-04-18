@@ -33,6 +33,10 @@ export default function Sidebar() {
                     <Button component={Link} to='/my-bookings'>
                         My Bookings
                     </Button>
+                    <br />
+                    <Button component={Link} to='/upcoming-events'>
+                        Upcoming Events
+                    </Button>
                 </>
             }
         </>
