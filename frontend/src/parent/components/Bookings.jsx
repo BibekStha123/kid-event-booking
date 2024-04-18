@@ -7,8 +7,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axiosClient from '../../api/axios';
-import { Button } from '@mui/material';
-
 
 function Bookings(props) {
 
@@ -35,7 +33,6 @@ function Bookings(props) {
                         <TableCell align="right"><strong>Child Age</strong></TableCell>
                         <TableCell align="right"><strong>Special Needs</strong></TableCell>
                         <TableCell align="right"><strong>Emergency Contact</strong></TableCell>
-                        <TableCell align="right"><strong>Actions</strong></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -52,14 +49,6 @@ function Bookings(props) {
                             <TableCell align="right">{booking.child_age}</TableCell>
                             <TableCell align="right">{booking.special_needs}</TableCell>
                             <TableCell align="right">{booking.emergency_contact_no}</TableCell>
-                            <TableCell align="right">
-                                <Button variant="outlined" color='secondary'>
-                                    Edit
-                                </Button>&nbsp;
-                                <Button variant="outlined" color='error'>
-                                    Delete
-                                </Button>
-                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -69,4 +58,3 @@ function Bookings(props) {
 }
 
 export default Bookings;
-

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BookingRequest;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,12 +17,19 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
-        $bookings = Booking::paginate(10);
+        $userId = Auth::id();
+        $userType = User::whereId($userId)->first()->user_type;
 
+        if($userType === "organizer") {
+            $bookings = Booking::paginate(10);
+        } else {
+            $bookings = Booking::whereUserId($userId)->paginate(10);
+        }
+        
         return response([
             'bookings' => BookingResource::collection($bookings),
-            'message' => 'Bookings displayed'
+            'message' => 'Bookings displayed',
+            'userTYpe'=> $userType
         ]);
     }
 

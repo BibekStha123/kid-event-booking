@@ -2,7 +2,7 @@ import {jwtDecode} from 'jwt-decode';
 
 export const isAuthenticated = () => {
     const token = localStorage.getItem("access_token");
-    if(!token && isEmpty(token) ) {
+    if(!token) {
         return false;
     }
 

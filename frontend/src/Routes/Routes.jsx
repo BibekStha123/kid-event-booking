@@ -4,18 +4,12 @@ import OrganizerRoutes from "../organizer/routes";
 import ParentRoutes from "../parent/routes";
 import PublicRoutes from "../publics/routes";
 import { Login } from "../publics/components";
+import { isAuthenticated, isOrganizer } from "../helpers";
 
 const Routes = () => {
 
-    const isAuthenticated = true;
-    const isOrganizer = true;
-
     const route = createBrowserRouter([
-        PublicRoutes()
-        // isAuthenticated ? (isOrganizer ? OrganizerRoutes() : ParentRoutes()) : PublicRoutes()
-        // {
-        //     path: '/login', element: <Login />
-        // }
+        isAuthenticated() ? (isOrganizer() ? OrganizerRoutes() : ParentRoutes()) : PublicRoutes()
     ]);
     return <RouterProvider router={route} />;
 };
