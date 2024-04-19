@@ -2,7 +2,8 @@ import React, { useRef, useState } from 'react';
 import axiosClient from '../../api/axios';
 import { useStateContext } from '../../ContextProvider'
 import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import { isOrganizer } from '../../helpers';
 
 function Login(props) {
 
@@ -10,7 +11,6 @@ function Login(props) {
     const passwordRef = useRef();
 
     const { setToken, setUsers } = useStateContext();
-    const [error, setError] = useState();
     const navigate = useNavigate();
 
     const loginHandler = (e) => {
@@ -25,7 +25,7 @@ function Login(props) {
             .then(({ data }) => {
                 setToken(data.access_token)
                 setUsers(data.user)
-                navigate('/dashboard')
+                isOrganizer() ?  navigate('/organizer-dashboard') : navigate('/dashboard')
             })
             .catch(({ response }) => {
                 toast.error(response.data.message)

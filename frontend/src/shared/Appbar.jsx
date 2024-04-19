@@ -16,6 +16,7 @@ import Toolbar from '@mui/material/Toolbar';
 import MuiAppBar from '@mui/material/AppBar';
 import { useStateContext } from '../ContextProvider';
 import Sidebar from './Sidebar';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
@@ -72,6 +73,7 @@ function logoutHandler(e) {
         .then(({ data }) => {
             toast.success(data.message)
             localStorage.removeItem('access_token')
+            location.href = "/"
         })
         .catch((error) => {
             console.log(error)
@@ -124,12 +126,13 @@ function Appbar(props) {
                     >
                         Dashboard - {users.name}
                     </Typography>
-                    <IconButton color="inherit">
+                    {/* <IconButton color="inherit">
                         <Badge badgeContent={4} color="secondary">
                             <NotificationsIcon />
                         </Badge>
-                    </IconButton>
+                    </IconButton> */}
                     <IconButton color="inherit" onClick={logoutHandler}>
+                        Logout
                         <ExitToAppIcon />
                     </IconButton>
                 </Toolbar>

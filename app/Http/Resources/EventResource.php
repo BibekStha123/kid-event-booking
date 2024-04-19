@@ -15,6 +15,7 @@ class EventResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'user' => $this->user,
             'name' => $this->name,
             'date_time' => $this->date_time,

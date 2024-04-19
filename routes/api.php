@@ -22,9 +22,11 @@ Route::middleware('auth:api')->group(function () {
         return $request->user();
     });
     Route::get('/get-parents', [AuthController::class, 'getParents']);
-    Route::apiResource('/bookings', BookingController::class);
     Route::get('/upcoming-events', [BookingController::class, 'upcomingEvents']);
+    Route::get('/count', [BookingController::class, 'getCounts']);
+    Route::apiResource('/bookings', BookingController::class);
     Route::apiResource('/events', EventController::class);
+    
 
     Route::delete('/logout', [AuthController::class, 'logout']);
 });

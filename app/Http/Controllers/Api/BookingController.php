@@ -94,4 +94,22 @@ class BookingController extends Controller
             'bookings' => BookingResource::collection($upcomingEvents)
         ]);
     }
+
+    public function getCounts()
+    {
+        $userId = Auth::id();
+        $currentDateTime = Carbon::now();
+
+        $upcomingEvents = Booking::whereUserId($userId)
+            ->whereHas('event', function ($query) use ($currentDateTime) {
+                $query->where('date_time', '>', $currentDateTime);
+            })->paginate(10);
+
+        $bookings = Booking::whereUserId($userId)->paginate(10);
+
+        return response([
+            'bookings_count' => count($bookings),
+            'events_count' => count($upcomingEvents)
+        ]);
+    }
 }
