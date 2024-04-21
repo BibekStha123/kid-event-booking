@@ -9,12 +9,13 @@ import Paper from '@mui/material/Paper';
 import axiosClient from '../../../api/axios';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Events(props) {
 
     const [events, setEvents] = useState([]);
 
-    useEffect(() => {
+    const getEvents = () => {
         axiosClient.get('/events')
             .then(({ data }) => {
                 setEvents(data.events)
@@ -22,7 +23,24 @@ function Events(props) {
             .catch((error) => {
                 console.log(error)
             })
+    }
+
+    useEffect(() => {
+        getEvents()
     }, [])
+
+    const deleteEvent = (eventId) => {
+        if (confirm("Are you sure you want to delete?")) {
+            axiosClient.delete('/events/' + eventId)
+                .then(({ data }) => {
+                    toast.success(data.message)
+                    getEvents()
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+        }
+    }
 
     return (
         <>
@@ -62,7 +80,7 @@ function Events(props) {
                                     <Button variant="outlined" color='secondary' component={Link} to={`/event/${event.id}`}>
                                         Edit
                                     </Button>&nbsp;
-                                    <Button variant="outlined" color='error'>
+                                    <Button variant="outlined" color='error' onClick={() => deleteEvent(event.id)}>
                                         Delete
                                     </Button>
                                 </TableCell>

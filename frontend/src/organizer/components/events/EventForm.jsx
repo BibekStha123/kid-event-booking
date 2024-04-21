@@ -63,7 +63,7 @@ function EventForm(props) {
     return (
         <div className="container p-5">
             <div className="card">
-                <h2 className="text-center my-4">Create Event</h2>
+                <h2 className="text-center my-4">{event ? 'Update '+event.name : 'Create Event'} </h2>
                 <div className="card-body p-4 py-0">
                     <form onSubmit={eventHandler}>
                         <div className="form-group mb-3">
