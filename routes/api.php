@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\ChildrenController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\EventController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,8 @@ Route::middleware('auth:api')->group(function () {
     });
     Route::get('/get-parents', [AuthController::class, 'getParents']);
     Route::get('/upcoming-events', [BookingController::class, 'upcomingEvents']);
-    Route::get('/count', [BookingController::class, 'getCounts']);
+    Route::get('/parent-dashboard', [DashboardController::class, 'parents']);
+    Route::get('/organizer-dashboard', [DashboardController::class, 'organizer']);
     Route::apiResource('/bookings', BookingController::class);
     Route::apiResource('/events', EventController::class);
     Route::apiResource('/children', ChildrenController::class);

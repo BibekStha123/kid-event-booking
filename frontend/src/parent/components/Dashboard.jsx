@@ -17,15 +17,16 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Dashboard(props) {
 
-  const [bookingsCount, setBookingsCount] = useState([]);
-  const [eventsCount, setEventsCount] = useState([]);
+  const [bookingsCount, setBookingsCount] = useState();
+  const [eventsCount, setEventsCount] = useState();
+  const [childrenCount, setChildrenCount] = useState();
 
   useEffect(() => {
-    axiosClient.get('/count')
+    axiosClient.get('/parent-dashboard')
       .then(({ data }) => {
-        // setBookings(data.bookings)
         setBookingsCount(data.bookings_count);
         setEventsCount(data.events_count);
+        setChildrenCount(data.children_count);
       })
       .catch((error) => {
         console.log(error)
@@ -45,6 +46,13 @@ function Dashboard(props) {
         <Grid item xl={4}>
           <Item>Upcoming Events - <strong>{eventsCount}</strong>
             <Button component={Link} to='/upcoming-events'>
+              View
+            </Button>
+          </Item>
+        </Grid>
+        <Grid item xl={4}>
+          <Item>Your Children - <strong>{childrenCount}</strong>
+            <Button component={Link} to='/children'>
               View
             </Button>
           </Item>

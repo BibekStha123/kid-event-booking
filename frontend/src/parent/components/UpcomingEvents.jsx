@@ -25,50 +25,53 @@ function UpcomingEvents(props) {
     }, [])
 
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell><strong> User Name</strong></TableCell>
-                        <TableCell align="right"><strong>Event Name</strong></TableCell>
-                        <TableCell align="right"><strong>Event Date</strong></TableCell>
-                        <TableCell align="right"><strong>Event Location</strong></TableCell>
-                        <TableCell align="right"><strong>Child Name</strong></TableCell>
-                        <TableCell align="right"><strong>Child Age</strong></TableCell>
-                        <TableCell align="right"><strong>Special Needs</strong></TableCell>
-                        <TableCell align="right"><strong>Emergency Contact</strong></TableCell>
-                    </TableRow>
-                </TableHead>
-
-                <TableBody>
-                    {loading ?
+        <>
+            <h2 className="my-4">Your Upcomging Events</h2>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
                         <TableRow>
-                            <TableCell align='center'> Loading...</TableCell>
+                            <TableCell><strong> User Name</strong></TableCell>
+                            <TableCell align="right"><strong>Event Name</strong></TableCell>
+                            <TableCell align="right"><strong>Event Date</strong></TableCell>
+                            <TableCell align="right"><strong>Event Location</strong></TableCell>
+                            <TableCell align="right"><strong>Child Name</strong></TableCell>
+                            <TableCell align="right"><strong>Child Age</strong></TableCell>
+                            <TableCell align="right"><strong>Special Needs</strong></TableCell>
+                            <TableCell align="right"><strong>Emergency Contact</strong></TableCell>
                         </TableRow>
-                        :
-                        events.map((ev, index) => (
-                            <TableRow
-                                key={index}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {ev.user.name}
-                                </TableCell>
-                                <TableCell align="right">{ev.event.name}</TableCell>
-                                <TableCell align="right">{ev.event.date_time}</TableCell>
-                                <TableCell align="right">{ev.event.location}</TableCell>
-                                <TableCell align="right">{ev.child_name}</TableCell>
-                                <TableCell align="right">{ev.child_age}</TableCell>
-                                <TableCell align="right">{ev.special_needs}</TableCell>
-                                <TableCell align="right">{ev.emergency_contact_no}</TableCell>
+                    </TableHead>
+
+                    <TableBody>
+                        {loading ?
+                            <TableRow>
+                                <TableCell align='center'> Loading...</TableCell>
                             </TableRow>
-                        ))
+                            :
+                            events.map((ev, index) => (
+                                <TableRow
+                                    key={index}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {ev.user.name}
+                                    </TableCell>
+                                    <TableCell align="right">{ev.event.name}</TableCell>
+                                    <TableCell align="right">{ev.event.date_time}</TableCell>
+                                    <TableCell align="right">{ev.event.location}</TableCell>
+                                    <TableCell align="right">{ev.child_name}</TableCell>
+                                    <TableCell align="right">{ev.child_age}</TableCell>
+                                    <TableCell align="right">{ev.special_needs}</TableCell>
+                                    <TableCell align="right">{ev.emergency_contact_no}</TableCell>
+                                </TableRow>
+                            ))
 
-                    }
-                </TableBody>
+                        }
+                    </TableBody>
 
-            </Table>
-        </TableContainer>
+                </Table>
+            </TableContainer>
+        </>
     );
 }
 

@@ -21,7 +21,6 @@ function ChildrenForm(props) {
             })
             .error(({response}) => {
                 console.log(response)
-                // toast.error()
             })
     }
 
@@ -54,7 +53,7 @@ function ChildrenForm(props) {
                         </div>
                         <div className="form-group mb-3">
                             <label>Date of Birth</label>
-                            <input type="date" className="form-control" required value={children.dob} onChange={e => setChildren({ ...children, dob: e.target.value })} />
+                            <input type="date" className="form-control" max="2018-12-31" required value={children.dob} onChange={e => setChildren({ ...children, dob: e.target.value })} />
                         </div>
                         <button type="submit" className="btn btn-primary mb-3">Add</button>
                     </form>
