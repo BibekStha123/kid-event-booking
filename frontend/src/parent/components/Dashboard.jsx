@@ -36,14 +36,14 @@ function Dashboard(props) {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xl={4}>
-          <Item><strong>{bookingsCount}</strong>
+          <Item>Total Bookings - <strong>{bookingsCount}</strong>
             <Button component={Link} to='/my-bookings'>
               View
             </Button>
           </Item>
         </Grid>
         <Grid item xl={4}>
-          <Item><strong>{eventsCount}</strong>
+          <Item>Upcoming Events - <strong>{eventsCount}</strong>
             <Button component={Link} to='/upcoming-events'>
               View
             </Button>

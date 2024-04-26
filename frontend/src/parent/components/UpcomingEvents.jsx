@@ -11,11 +11,13 @@ import axiosClient from '../../api/axios';
 function UpcomingEvents(props) {
 
     const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         axiosClient.get('/upcoming-events')
             .then(({ data }) => {
                 setEvents(data.bookings)
+                setLoading(false)
             })
             .catch((error) => {
                 console.log(error)
@@ -37,25 +39,34 @@ function UpcomingEvents(props) {
                         <TableCell align="right"><strong>Emergency Contact</strong></TableCell>
                     </TableRow>
                 </TableHead>
+
                 <TableBody>
-                    {events.map((ev, index) => (
-                        <TableRow
-                            key={index}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row">
-                                {ev.user.name}
-                            </TableCell>
-                            <TableCell align="right">{ev.event.name}</TableCell>
-                            <TableCell align="right">{ev.event.date_time}</TableCell>
-                            <TableCell align="right">{ev.event.location}</TableCell>
-                            <TableCell align="right">{ev.child_name}</TableCell>
-                            <TableCell align="right">{ev.child_age}</TableCell>
-                            <TableCell align="right">{ev.special_needs}</TableCell>
-                            <TableCell align="right">{ev.emergency_contact_no}</TableCell>
+                    {loading ?
+                        <TableRow>
+                            <TableCell align='center'> Loading...</TableCell>
                         </TableRow>
-                    ))}
+                        :
+                        events.map((ev, index) => (
+                            <TableRow
+                                key={index}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell component="th" scope="row">
+                                    {ev.user.name}
+                                </TableCell>
+                                <TableCell align="right">{ev.event.name}</TableCell>
+                                <TableCell align="right">{ev.event.date_time}</TableCell>
+                                <TableCell align="right">{ev.event.location}</TableCell>
+                                <TableCell align="right">{ev.child_name}</TableCell>
+                                <TableCell align="right">{ev.child_age}</TableCell>
+                                <TableCell align="right">{ev.special_needs}</TableCell>
+                                <TableCell align="right">{ev.emergency_contact_no}</TableCell>
+                            </TableRow>
+                        ))
+
+                    }
                 </TableBody>
+
             </Table>
         </TableContainer>
     );

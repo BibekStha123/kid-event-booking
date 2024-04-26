@@ -14,11 +14,13 @@ import { toast } from 'react-toastify';
 function Events(props) {
 
     const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     const getEvents = () => {
         axiosClient.get('/events')
             .then(({ data }) => {
                 setEvents(data.events)
+                setLoading(false)
             })
             .catch((error) => {
                 console.log(error)
@@ -63,29 +65,35 @@ function Events(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {events.map((event, index) => (
-                            <TableRow
-                                key={index}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {event.name}
-                                </TableCell>
-                                <TableCell align="right">{event.date_time}</TableCell>
-                                <TableCell align="right">{event.location}</TableCell>
-                                <TableCell align="right">{event.age}</TableCell>
-                                <TableCell align="right">{event.amount}</TableCell>
-                                <TableCell align="right">{event.description}</TableCell>
-                                <TableCell align="right">
-                                    <Button variant="outlined" color='secondary' component={Link} to={`/event/${event.id}`}>
-                                        Edit
-                                    </Button>&nbsp;
-                                    <Button variant="outlined" color='error' onClick={() => deleteEvent(event.id)}>
-                                        Delete
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        {
+                            loading ?
+                                <TableRow>
+                                    <TableCell align='center'> Loading...</TableCell>
+                                </TableRow>
+                                :
+                                events.map((event, index) => (
+                                    <TableRow
+                                        key={index}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell component="th" scope="row">
+                                            {event.name}
+                                        </TableCell>
+                                        <TableCell align="right">{event.date_time}</TableCell>
+                                        <TableCell align="right">{event.location}</TableCell>
+                                        <TableCell align="right">{event.age}</TableCell>
+                                        <TableCell align="right">{event.amount}</TableCell>
+                                        <TableCell align="right">{event.description}</TableCell>
+                                        <TableCell align="right">
+                                            <Button variant="outlined" color='secondary' component={Link} to={`/event/${event.id}`}>
+                                                Edit
+                                            </Button>&nbsp;
+                                            <Button variant="outlined" color='error' onClick={() => deleteEvent(event.id)}>
+                                                Delete
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
                     </TableBody>
                 </Table>
             </TableContainer>

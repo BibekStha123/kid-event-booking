@@ -73,7 +73,7 @@ function logoutHandler(e) {
         .then(({ data }) => {
             toast.success(data.message)
             localStorage.removeItem('access_token')
-            location.href = "/"
+            window.location.replace("/");
         })
         .catch((error) => {
             console.log(error)
