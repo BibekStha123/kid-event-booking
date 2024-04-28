@@ -12,8 +12,9 @@ class MailController extends Controller
     public function remainderMail()
     {
         Mail::to('bibekstha084@gmail.com')->send(new EventRemainderMail([
-            'title' => 'The Title',
-            'body' => 'The Body',
+            'name' => 'Bibek',
+            'title' => 'Event Remainder',
+            'body' => 'This is a event remainder mail.',
         ]));
 
         return 'Mail sent';

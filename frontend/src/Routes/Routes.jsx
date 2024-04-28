@@ -9,7 +9,8 @@ import { isAuthenticated, isOrganizer } from "../helpers";
 const Routes = () => {
 
     const route = createBrowserRouter([
-        isAuthenticated() ? (isOrganizer() ? OrganizerRoutes() : ParentRoutes()) : PublicRoutes()
+        isAuthenticated() ? (isOrganizer() ? OrganizerRoutes() : ParentRoutes()) : {},
+        PublicRoutes()
     ]);
     return <RouterProvider router={route} />;
 };

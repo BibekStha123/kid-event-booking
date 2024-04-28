@@ -14,12 +14,14 @@ class EventRemainderMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $data;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
         //
+        $this->data = $data;
     }
 
     /**
@@ -28,7 +30,6 @@ class EventRemainderMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('kidsbooking7@gmail.com', 'Kids Event Booking'),
             subject: 'Event Remainder Mail',
         );
     }

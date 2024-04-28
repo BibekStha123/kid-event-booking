@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom'
-import '../css/main.css'
-import '../css/events.css'
+// import '../css/main.css'
+// import '../css/events.css'
 import { facebook, instagram, linkedin, logo, menuClose, menuOpen, twitter, youtube } from '../../assets/icons';
+import { isAuthenticated } from '../../helpers';
 
 function PublicLayout(props) {
     return (
@@ -35,12 +36,18 @@ function PublicLayout(props) {
                             <li>
                                 <Link to="/contact-us">Contact Us</Link>
                             </li>
-                            <li>
-                                <Link to="/login">Login</Link>
-                            </li>
-                            <li>
-                                <Link to="/register">Register</Link>
-                            </li>
+                            {
+                                isAuthenticated() ? ''
+                                :
+                                <>
+                                    <li>
+                                        <Link to="/login">Login</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/register">Register</Link>
+                                    </li>
+                                </>
+                            }
                         </ul>
                     </nav>
                 </div>

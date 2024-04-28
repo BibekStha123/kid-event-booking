@@ -1,12 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axiosClient from '../../api/axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { isAuthenticated } from '../../helpers';
 
 function Register() {
 
     const [errors, setErrors] = useState();
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        if (isAuthenticated()) {
+            navigate('/dashboard')
+        }
+    })
 
     const nameRef = useRef();
     const emailRef = useRef();

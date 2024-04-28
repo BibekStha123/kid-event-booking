@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axiosClient from '../../api/axios';
 import { useStateContext } from '../../ContextProvider'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { isOrganizer } from '../../helpers';
+import { isAuthenticated, isOrganizer } from '../../helpers';
 
 function Login(props) {
 
@@ -12,6 +12,12 @@ function Login(props) {
 
     const { setToken, setUsers } = useStateContext();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated()) {
+            navigate('/dashboard')
+        }
+    })
 
     const loginHandler = (e) => {
         e.preventDefault();
@@ -25,7 +31,13 @@ function Login(props) {
             .then(({ data }) => {
                 setToken(data.access_token)
                 setUsers(data.user)
-                isOrganizer() ?  navigate('/organizer-dashboard') : navigate('/dashboard')
+                if (isAuthenticated()) {
+                    if (isOrganizer()) {
+                        history.push('/organizer-dashboard')
+                    } else {
+                        history.push('/dashboard')
+                    }
+                }
             })
             .catch(({ response }) => {
                 toast.error(response.data.message)
@@ -34,7 +46,7 @@ function Login(props) {
     }
 
     return (
-        <div className="container p-5">
+        < div className="container p-5" >
             <div className="card">
                 <h2 className="text-center my-4">Login</h2>
                 <div className="card-body p-4 py-0">
@@ -54,7 +66,7 @@ function Login(props) {
                     </form>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

@@ -68,8 +68,9 @@ class ChildrenController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Children $children)
+    public function destroy($childrenId)
     {
+        $children = Children::whereId($childrenId)->first();
         $children->delete();
 
         return response([
