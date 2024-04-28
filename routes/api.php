@@ -28,12 +28,13 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/parent-dashboard', [DashboardController::class, 'parents']);
     Route::get('/organizer-dashboard', [DashboardController::class, 'organizer']);
     Route::apiResource('/bookings', BookingController::class);
-    Route::apiResource('/events', EventController::class);
+    Route::get('/past-events', [EventController::class, 'pastEvents']);
     Route::apiResource('/children', ChildrenController::class);
-
+    
     Route::delete('/logout', [AuthController::class, 'logout']);
 });
 
+Route::apiResource('/events', EventController::class);
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');

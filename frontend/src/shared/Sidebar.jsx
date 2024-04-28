@@ -16,6 +16,10 @@ export default function Sidebar() {
                         Events
                     </Button>
                     <br />
+                    <Button component={Link} to='/past-events'>
+                        Past Events
+                    </Button>
+                    <br />
                     <Button component={Link} to='/bookings'>
                         Bookings
                     </Button>

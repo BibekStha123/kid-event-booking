@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { Bookings, EventForm, Events, OrganizerDashboard, Parents } from "../components";
+import { Bookings, EventForm, Events, OrganizerDashboard, Parents, PastEvents } from "../components";
 import { Layout } from "../../shared";
 
 export default function OrganizerRoutes() {
@@ -10,6 +10,7 @@ export default function OrganizerRoutes() {
             { path: '/events', element: <Events /> },
             { path: '/create-event', element: <EventForm /> },
             { path: '/event/:id', element: <EventForm /> },
+            { path: '/past-events', element: <PastEvents /> },
             { path: '/bookings', element: <Bookings /> },
             { path: '/parents', element: <Parents /> },
             { path: '*', element: <Navigate to='/' replace /> },

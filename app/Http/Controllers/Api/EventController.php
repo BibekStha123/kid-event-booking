@@ -15,7 +15,7 @@ class EventController extends Controller
 
     public function __construct()
     {
-        $this->middleware('organizer')->except(['index', 'show']);
+        $this->middleware(['auth:api', 'organizer'])->except(['index', 'show']);
     }
 
     /**
@@ -88,6 +88,15 @@ class EventController extends Controller
 
         return response([
             'message' => 'Event Deleted Successfully.'
+        ], 200);
+    }
+
+    public function pastEvents()
+    {
+        $events = Event::where('date_time', '<', Carbon::now())->paginate(10);
+
+        return response([
+            'events' => EventResource::collection($events)
         ], 200);
     }
 }

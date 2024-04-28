@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { Home, Login, Register } from "../components";
+import { Aboutus, Contactus, Events, Home, Login, Register } from "../components";
 import PublicLayout from "../layout/PublicLayout";
 
 export default function PublicRoutes() {
@@ -9,7 +9,10 @@ export default function PublicRoutes() {
             { path: '/login', element: <Login /> },
             { path: '/register', element: <Register /> },
             { path: '/', element: <Home /> },
-            {path: '*', element: <Navigate to="/" replace/>}
+            { path: '/events', element: <Events /> },
+            { path: '/about-us', element: <Aboutus /> },
+            { path: '/contact-us', element: <Contactus /> },
+            { path: '*', element: <Navigate to="/" replace /> }
         ]
     }
 }
