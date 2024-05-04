@@ -43,10 +43,10 @@ class BookingController extends Controller
         Booking::create([
             'user_id' => Auth::id(),
             'event_id' => $data['event_id'],
-            'child_name' => $data['child_name'],
-            'child_age' => $data['child_age'],
+            'children_id' => $data['children_id'],
             'special_needs' => $data['special_needs'],
-            'emergency_contact_no' => $data['emergency_contact_no']
+            'emergency_contact_no' => $data['emergency_contact_no'],
+            'file' => "dfdfdf"
         ]);
 
         return response([

@@ -23,8 +23,7 @@ class BookingRequest extends FormRequest
     {
         return [
             'event_id' => 'required',
-            'child_name' => 'required',
-            'child_age' => 'required',
+            'children_id' => 'required',
             'special_needs' => 'required',
             'emergency_contact_no' => 'required'
         ];

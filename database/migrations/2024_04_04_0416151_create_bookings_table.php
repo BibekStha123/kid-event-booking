@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('event_id')->constrained();
-            $table->string('child_name');
-            $table->integer('child_age');
+            $table->foreignId('children_id')->constrained();
             $table->string('special_needs');
             $table->string('emergency_contact_no');
+            $table->string('file');
             $table->timestamps();
         });
     }
