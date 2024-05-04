@@ -1,10 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { isAuthenticated, isOrganizer } from '../../helpers';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axiosClient from '../../api/axios';
+import Dropdown from 'react-bootstrap/Dropdown'
 
 function BookingForm(props) {
+
+    const navigate = useNavigate()
+    const { id } = useParams()
+    const [children, setChildren] = useState([]);
+    const [eventName, setEventName] = useState('')
+    const [child, setChild] = useState('')
+
+    useEffect(() => {
+        if (!isAuthenticated()) {
+            toast.success("Please login before booking the event")
+            navigate('/login')
+        }
+
+        axiosClient.get(`/events/${id}`)
+            .then(({ data }) => {
+                setEventName(data.event.name)
+            })
+            .catch(({ error }) => {
+                console.log(error);
+            })
+
+        axiosClient.get('children')
+            .then(({ data }) => {
+                setChildren(data.children)
+            })
+            .catch(({ error }) => {
+                console.log(error);
+            })
+
+    }, [])
 
     const onSubmit = (e) => {
 
     }
+
+    const dropdownHandler = (childName) => {
+        setChild(childName)
+    }
+
+    console.log(children)
 
     return (
         <div className="container p-5">
@@ -18,16 +59,38 @@ function BookingForm(props) {
                     </div>} */}
                     <form onSubmit={onSubmit}>
                         <div className="form-group mb-3">
-                            <label>Name</label>
+                            <label>Event Name</label>
+                            <input readOnly value={eventName} type="text" className="form-control" placeholder="Enter Name" required />
+                        </div>
+                        <div className="form-group mb-3">
+                            <label>Child Name</label>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                                    {child ? child : 'Select Child'}
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    {
+                                        children.map((c, index) => {
+                                            return (
+                                                <Dropdown.Item key={index} onClick={dropdownHandler(c.name)}>{c.name}</Dropdown.Item>
+                                            )
+                                        })
+                                    }
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+                        <div className="form-group mb-3">
+                            <label>Child Age</label>
+                            <input readOnly type="text" className="form-control" placeholder="Enter Name" required />
+                        </div>
+                        <div className="form-group mb-3">
+                            <label>Emergency Contact Number</label>
                             <input type="text" className="form-control" placeholder="Enter Name" required />
                         </div>
                         <div className="form-group mb-3">
-                            <label>Email address</label>
-                            <input type="email" className="form-control" placeholder="Enter email" required />
-                        </div>
-                        <div className="form-group mb-3">
-                            <label>Password</label>
-                            <input type="password" className="form-control" placeholder="Password" required />
+                            <label>Special Needs</label>
+                            <input type="text" className="form-control" placeholder="Enter Name" required />
                         </div>
                         <button className="btn btn-primary mb-3">Book</button>
                     </form>

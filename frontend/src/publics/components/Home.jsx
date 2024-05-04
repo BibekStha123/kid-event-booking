@@ -4,15 +4,14 @@ import eventImg from "../../assets/images/event.jpg"
 import { Link } from 'react-router-dom';
 import axiosClient from '../../api/axios';
 
-function Home(props) {
+function Home() {
 
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState([])
 
     useEffect(() => {
         axiosClient.get('/events')
             .then(({ data }) => {
                 setEvents(data.events)
-                console.log(events)
             })
             .catch((error) => {
                 console.log(error)
@@ -49,18 +48,20 @@ function Home(props) {
                 </div>
                 {
                     events.map((event, index) => {
-                        <a href="" key={index}>
-                            <div className="upcoming-event-one upcoming-events-card">
-                                <div className="bg-image">
-                                    <img src={eventImg} alt="" />
+                        return (
+                            <a href="" key={index}>
+                                <div className="upcoming-event-one upcoming-events-card">
+                                    <div className="bg-image">
+                                        <img src={eventImg} alt="" />
+                                    </div>
+                                    <div className="event-date">Jan<br />1</div>
+                                    <div className="event-info">
+                                        <h3 className="event-name">{event.name}</h3>
+                                        <p className="event-duration">Jan 1, 2024 - Jan 2, 2024</p>
+                                    </div>
                                 </div>
-                                <div className="event-date">Jan<br />1</div>
-                                <div className="event-info">
-                                    <h3 className="event-name">{event.name}</h3>
-                                    <p className="event-duration">Jan 1, 2024 - Jan 2, 2024</p>
-                                </div>
-                            </div>
-                        </a>
+                            </a>
+                        )
                     })
                 }
             </section>

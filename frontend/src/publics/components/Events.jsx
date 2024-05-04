@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axiosClient from '../../api/axios';
+import eventImg from "../../assets/images/event.jpg"
+import calendarImg from "../../assets/icons/calendar.svg"
+import clockImg from "../../assets/icons/clock.svg"
+import searchImg from "../../assets/icons/search.svg"
+import { Link } from 'react-router-dom';
 
 function Events(props) {
 
@@ -9,7 +14,6 @@ function Events(props) {
         axiosClient.get('/events')
             .then(({ data }) => {
                 setEvents(data.events)
-                console.log(data.events)
             })
             .catch((error) => {
                 console.log(error)
@@ -17,6 +21,7 @@ function Events(props) {
     }, [])
 
     return (
+
         <main className="event-container">
             <div className="search-container">
                 <p className="search-container-title">
@@ -25,7 +30,7 @@ function Events(props) {
                 <div className="event-search-form">
                     <form action="" method="get">
                         <img
-                            src="../assets/icons/search.svg"
+                            src={searchImg}
                             alt="search icon"
                             className="search-icon"
                         />
@@ -38,26 +43,28 @@ function Events(props) {
                 <div className="event-list-container-container">
                     {
                         events.map((event, index) => {
-                            <a href="" key={index}>
-                                <div className="event-list-card">
-                                    <div className="event-list-image-card">
-                                        <img src="../assets/images/event 1.jpg" alt="" />
-                                    </div>
-                                    <div className="event-list-info-card">
-                                        <h2 className="event-list-name">{event.name}</h2>
-                                        <p className="event-list-price">AUD $20</p>
-                                        <div className="event-list-date-time">
-                                            <div className="event-list-date-time-text">
-                                                <img src="../assets/icons/calendar.svg" alt="" /> 15 Jan -
-                                                Fri, 3:00 PM
-                                            </div>
-                                            <div className="event-list-duration">
-                                                <img src="../assets/icons/clock.svg" alt="" /> 1h
+                            return (
+                                <Link to={`/book-event/` + event.id} key={index}>
+                                    <div className="event-list-card">
+                                        <div className="event-list-image-card">
+                                            <img src={eventImg} alt="" />
+                                        </div>
+                                        <div className="event-list-info-card">
+                                            <h2 className="event-list-name">{event.name}</h2>
+                                            <p className="event-list-price">AUD $20</p>
+                                            <div className="event-list-date-time">
+                                                <div className="event-list-date-time-text">
+                                                    <img src={calendarImg} alt="" /> 15 Jan -
+                                                    Fri, 3:00 PM
+                                                </div>
+                                                <div className="event-list-duration">
+                                                    <img src={clockImg} alt="" /> 1h
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
+                                </Link>
+                            )
                         })
                     }
                 </div>

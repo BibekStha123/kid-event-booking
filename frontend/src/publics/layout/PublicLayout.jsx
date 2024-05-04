@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom'
-// import '../css/main.css'
-// import '../css/events.css'
+import '../css/main.css'
+import '../css/events.css'
 import { facebook, instagram, linkedin, logo, menuClose, menuOpen, twitter, youtube } from '../../assets/icons';
 import { isAuthenticated } from '../../helpers';
 

@@ -12,7 +12,7 @@ export default function PublicRoutes() {
             { path: '/events', element: <Events /> },
             { path: '/about-us', element: <Aboutus /> },
             { path: '/contact-us', element: <Contactus /> },
-            { path: '/book-event', element: <BookingForm /> },
+            { path: '/book-event/:id', element: <BookingForm /> },
             { path: '*', element: <Navigate to="/" replace /> }
         ]
     }
