@@ -18,6 +18,7 @@ function BookingForm(props) {
     const childRef = useRef()
     const specialNeedRef = useRef()
     const emergencyContactRef = useRef()
+    const fileRef = useRef()
 
 
     useEffect(() => {
@@ -44,6 +45,14 @@ function BookingForm(props) {
 
     }, [])
 
+    const childNameHandler = (e) => {
+        const childId = e.target.value
+        const filteredChild = children.filter((child) => {
+            return child.id == childId
+        })
+        setChildAge(filteredChild[0].age)
+    }
+
     const onSubmit = (e) => {
         e.preventDefault()
         const payload = {
@@ -51,24 +60,21 @@ function BookingForm(props) {
             children_id: childRef.current.value,
             special_needs: specialNeedRef.current.value,
             emergency_contact_no: emergencyContactRef.current.value,
+            file: fileRef.current.files[0]
         }
 
-        axiosClient.post('/bookings', payload)
-        .then(({data}) => {
-            toast.success(data.message)
+        axiosClient.post('/bookings', payload, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         })
-        .catch(({response}) => {
-            setErrors(response.data.errors)
+            .then(({ data }) => {
+                toast.success(data.message)
+            })
+            .catch(({ response }) => {
+                setErrors(response.data.errors)
                 toast.error("Please check the information provided")
-        })
-    }
-
-    const childNameHandler = (e) => {
-        const childId = e.target.value
-        const filteredChild = children.filter((child) => {
-            return child.id == childId
-        })
-        setChildAge(filteredChild[0].age)
+            })
     }
 
     return (
@@ -84,7 +90,7 @@ function BookingForm(props) {
                     <form onSubmit={onSubmit}>
                         <div className="form-group mb-3">
                             <label>Event Name</label>
-                            <input hidden ref={eventRef} value={event.id}/>
+                            <input hidden ref={eventRef} value={event.id} />
                             <input readOnly value={event.name} type="text" className="form-control" placeholder="Enter Name" required />
                         </div>
                         <div className="form-group mb-3">
@@ -111,6 +117,10 @@ function BookingForm(props) {
                         <div className="form-group mb-3">
                             <label>Special Needs</label>
                             <input type="text" ref={specialNeedRef} className="form-control" placeholder="Enter Name" required />
+                        </div>
+                        <div className="form-group mb-3">
+                            <label>Upload File(Video, Audio, PDF)</label>
+                            <input type="file" ref={fileRef} className="form-control" required />
                         </div>
                         <button className="btn btn-primary mb-3">Book</button>
                     </form>

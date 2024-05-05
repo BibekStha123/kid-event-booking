@@ -21,6 +21,7 @@ class BookingResource extends JsonResource
             'child_age' => $this->child_age,
             'special_needs' => $this->special_needs,
             'emergency_contact_no' => $this->emergency_contact_no,
+            'file' => asset('storage/uploads/' . $this->file)
         ];
     }
 }

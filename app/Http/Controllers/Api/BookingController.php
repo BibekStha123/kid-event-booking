@@ -10,6 +10,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BookingController extends Controller
 {
@@ -40,14 +41,19 @@ class BookingController extends Controller
     {
         $data = $request->validated();
 
-        Booking::create([
-            'user_id' => Auth::id(),
-            'event_id' => $data['event_id'],
-            'children_id' => $data['children_id'],
-            'special_needs' => $data['special_needs'],
-            'emergency_contact_no' => $data['emergency_contact_no'],
-            'file' => "dfdfdf"
-        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('uploads', $fileName, 'public');
+            Booking::create([
+                'user_id' => Auth::id(),
+                'event_id' => $data['event_id'],
+                'children_id' => $data['children_id'],
+                'special_needs' => $data['special_needs'],
+                'emergency_contact_no' => $data['emergency_contact_no'],
+                'file' => $fileName
+            ]);
+        }
 
         return response([
             'message' => 'Event Booked Successfully.'

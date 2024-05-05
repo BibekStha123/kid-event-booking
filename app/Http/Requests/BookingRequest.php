@@ -25,7 +25,8 @@ class BookingRequest extends FormRequest
             'event_id' => 'required',
             'children_id' => 'required',
             'special_needs' => 'required',
-            'emergency_contact_no' => 'required'
+            'emergency_contact_no' => 'required',
+            'file' => 'required'
         ];
     }
 }
