@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Children;
+use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BookingRequest extends FormRequest
@@ -28,5 +30,16 @@ class BookingRequest extends FormRequest
             'emergency_contact_no' => 'required',
             'file' => 'required'
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator){
+            $event = Event::whereId($this->input('event_id'))->first();
+            $children = Children::whereId($this->input('children_id'))->first();
+            if($event->age !== $children->age) {
+                $validator->errors()->add('children_id', 'Age does not matched');
+            }
+        });
     }
 }

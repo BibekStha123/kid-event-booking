@@ -29,4 +29,9 @@ class Booking extends Model
         return $this->belongsTo(Event::class);
     }
 
+    public function children()
+    {
+        return $this->hasOne(Children::class);
+    }
+
 }

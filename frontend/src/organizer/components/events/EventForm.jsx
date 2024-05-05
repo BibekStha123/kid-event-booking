@@ -75,7 +75,7 @@ function EventForm(props) {
                         </div>
                         <div className="form-group mb-3">
                             <label>Age</label>
-                            <input className="form-control" placeholder="Age" required value={event.age} onChange={ev => setEvent({ ...event, age: ev.target.value })} />
+                            <input type='number' className="form-control" placeholder="Age" required value={event.age} onChange={ev => setEvent({ ...event, age: ev.target.value })} />
                         </div>
                         <div className="form-group mb-3">
                             <label>Amount</label>

@@ -16,4 +16,9 @@ class Children extends Model
         'age',
         'gender'
     ];
+
+    public function booking()
+    {
+        return $this->belongsTo(Booking::class);
+    }
 }
