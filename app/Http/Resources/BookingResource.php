@@ -17,8 +17,8 @@ class BookingResource extends JsonResource
         return [
             'user' => $this->user,
             'event' => $this->event,
-            'child_name' => $this->child_name,
-            'child_age' => $this->child_age,
+            'child_name' => $this->children->name,
+            'child_age' => $this->children->age,
             'special_needs' => $this->special_needs,
             'emergency_contact_no' => $this->emergency_contact_no,
             'file' => asset('storage/uploads/' . $this->file)

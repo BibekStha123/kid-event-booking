@@ -31,7 +31,7 @@ class Booking extends Model
 
     public function children()
     {
-        return $this->hasOne(Children::class);
+        return $this->belongsTo(Children::class);
     }
 
     public function payment()
