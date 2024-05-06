@@ -37,7 +37,7 @@ class BookingRequest extends FormRequest
         $validator->after(function ($validator){
             $event = Event::whereId($this->input('event_id'))->first();
             $children = Children::whereId($this->input('children_id'))->first();
-            if($event->age !== $children->age) {
+            if($event->age != $children->age) {
                 $validator->errors()->add('children_id', 'Age does not matched');
             }
         });

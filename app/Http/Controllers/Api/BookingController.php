@@ -4,12 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookingRequest;
+use App\Http\Requests\PaymentRequest;
 use App\Http\Resources\BookingResource;
+use App\Mail\BookingConfirmationMail;
 use App\Models\Booking;
+use App\Models\Children;
+use App\Models\Event;
+use App\Models\Payment;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class BookingController extends Controller
@@ -37,23 +44,50 @@ class BookingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BookingRequest $request)
+    public function store(BookingRequest $request, PaymentRequest $paymentRequest)
     {
         $data = $request->validated();
+        $payment = $paymentRequest->validated();
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $fileName = $file->getClientOriginalName();
-            $file->storeAs('uploads', $fileName, 'public');
-            Booking::create([
-                'user_id' => Auth::id(),
-                'event_id' => $data['event_id'],
-                'children_id' => $data['children_id'],
-                'special_needs' => $data['special_needs'],
-                'emergency_contact_no' => $data['emergency_contact_no'],
-                'file' => $fileName
+        DB::beginTransaction();
+
+        try {
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $fileName = $file->getClientOriginalName();
+                $file->storeAs('uploads', $fileName, 'public');
+                $booking = Booking::create([
+                    'user_id' => Auth::id(),
+                    'event_id' => $data['event_id'],
+                    'children_id' => $data['children_id'],
+                    'special_needs' => $data['special_needs'],
+                    'emergency_contact_no' => $data['emergency_contact_no'],
+                    'file' => $fileName
+                ]);
+            }
+
+            Payment::create([
+                'booking_id' => $booking->id,
+                'card_no' => $payment['card_no'],
+                'expiry_date' => $payment['expiry_date'],
+                'cvc' => $payment['cvc'],
+                'amount_paid' => Event::whereId($data['event_id'])->first()->amount
             ]);
+
+            $user = User::whereId(Auth::id())->first();
+            Mail::to($user->email)->send(new BookingConfirmationMail([
+                'user' => $user,
+                'event' => Event::whereId($data['event_id'])->first(),
+                'child' => Children::whereId($data['children_id'])->first()
+            ]));
+
+            DB::commit();
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
         }
+
 
         return response([
             'message' => 'Event Booked Successfully.'

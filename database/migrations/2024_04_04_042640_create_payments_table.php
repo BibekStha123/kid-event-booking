@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('event_id')->constrained();
-            $table->string('amount');
+            $table->foreignId('booking_id')->constrained();
+            $table->string('card_no');
+            $table->string('expiry_date');
+            $table->string('cvc');
+            $table->string('amount_paid');
             $table->timestamps();
         });
     }
