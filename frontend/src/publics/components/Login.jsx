@@ -4,6 +4,7 @@ import { useStateContext } from '../../ContextProvider'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { isAuthenticated, isOrganizer } from '../../helpers';
+import GoogleIcon from '@mui/icons-material/Google';
 
 function Login(props) {
 
@@ -48,6 +49,10 @@ function Login(props) {
 
     }
 
+    const hanldeGoogleLogin = () => {
+        window.location.href = 'http://localhost:8000/api/google/redirect'
+    }
+
     return (
         < div className="container p-5" >
             <div className="card">
@@ -64,9 +69,13 @@ function Login(props) {
                         </div>
                         <button type="submit" className="btn btn-primary mb-3">Login</button>
                         <div>
-                            <p>Not Registered? <Link to="/register">Create an account</Link>  </p>
+                            <p>Not Registered? <Link to="/register">Create an account</Link></p>
                         </div>
                     </form>
+                    <button className='btn btn-outline-success mb-3' onClick={hanldeGoogleLogin}>
+                        <GoogleIcon /> &nbsp;
+                        Sign Up with Google Account
+                    </button>
                 </div>
             </div>
         </div >

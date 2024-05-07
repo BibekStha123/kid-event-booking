@@ -10,6 +10,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -84,5 +85,10 @@ class AuthController extends Controller
             'user' => $user,
             'message' => 'User Updated Successfully.'
         ], 200);
+    }
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
     }
 }
