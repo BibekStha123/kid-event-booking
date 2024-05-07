@@ -27,7 +27,7 @@ function EventForm(props) {
                 .catch((error) => {
                     console.log(error)
                 })
-        })
+        }, [id])
     }
 
     const eventHandler = (e) => {

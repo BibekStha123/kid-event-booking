@@ -32,6 +32,7 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('/children', ChildrenController::class);
     
     Route::delete('/logout', [AuthController::class, 'logout']);
+    Route::post('/update-profile/{user}', [AuthController::class, 'updateProfile']);
 });
 
 Route::apiResource('/events', EventController::class);

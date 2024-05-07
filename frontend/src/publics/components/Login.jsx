@@ -31,11 +31,14 @@ function Login(props) {
             .then(({ data }) => {
                 setToken(data.access_token)
                 setUsers(data.user)
+                toast.success("Successfully loggedin")
                 if (isAuthenticated()) {
                     if (isOrganizer()) {
-                        history.push('/organizer-dashboard')
+                        // navigate('/organizer-dashboard')
+                        window.location.href = '/organizer-dashboard'
                     } else {
-                        history.push('/dashboard')
+                        // navigate('/dashboard')
+                        window.location.href = '/dashboard'
                     }
                 }
             })

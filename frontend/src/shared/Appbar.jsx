@@ -4,19 +4,19 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axiosClient from '../api/axios';
 import { toast } from 'react-toastify';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import MuiDrawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import MuiAppBar from '@mui/material/AppBar';
 import { useStateContext } from '../ContextProvider';
 import Sidebar from './Sidebar';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 
@@ -92,7 +92,7 @@ function Appbar(props) {
     useEffect(() => {
         axiosClient.get('/user')
             .then(({ data }) => {
-                console.log(data)
+                // console.log(data)
                 setUsers(data)
             })
     }, [])
@@ -131,7 +131,11 @@ function Appbar(props) {
                             <NotificationsIcon />
                         </Badge>
                     </IconButton> */}
-                    <IconButton color="inherit" onClick={logoutHandler}>
+                    <IconButton color="inherit" component={Link} to="/update-profile" sx={{ fontSize: 20 }}>
+                        Update Profile
+                        <AccountCircleIcon />
+                    </IconButton>
+                    <IconButton color="inherit" onClick={logoutHandler} sx={{ fontSize: 20 }}>
                         Logout
                         <ExitToAppIcon />
                     </IconButton>

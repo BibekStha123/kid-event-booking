@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -65,6 +66,23 @@ class AuthController extends Controller
 
         return response([
             'parents' => UserResource::collection($parents)
+        ], 200);
+    }
+
+    public function updateProfile(UpdateProfileRequest $request, User $user)
+    {
+        $data = $request->validated();
+
+        $user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'address' => $data['address'],
+            'contact_no' => $data['contact_no']
+        ]);
+
+        return response([
+            'user' => $user,
+            'message' => 'User Updated Successfully.'
         ], 200);
     }
 }
