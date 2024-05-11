@@ -43,7 +43,7 @@ function Home() {
                         Events
                     </h2>
                     <div className="upcoming-cta">
-                        <Link to="/events">View All</Link>
+                        <Link to="/all-events">View All</Link>
                     </div>
                 </div>
                 {

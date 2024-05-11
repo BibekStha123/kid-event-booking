@@ -10,7 +10,7 @@ function Events(props) {
 
     const [events, setEvents] = useState([]);
 
-    useEffect(() => {
+    function getEvents() {
         axiosClient.get('/events')
             .then(({ data }) => {
                 setEvents(data.events)
@@ -18,7 +18,23 @@ function Events(props) {
             .catch((error) => {
                 console.log(error)
             })
+    }
+
+    useEffect(() => {
+        getEvents()
     }, [])
+
+    const filterEvents = (e) => {
+        const searchKey = e.target.value;
+        if (searchKey.length === 0) {
+            getEvents()
+        } else {
+            const filteredEvents = events.filter((event) => {
+                return event.name.toLowerCase().includes(searchKey.toLowerCase())
+            })
+            setEvents(filteredEvents)
+        }
+    }
 
     return (
 
@@ -34,8 +50,8 @@ function Events(props) {
                             alt="search icon"
                             className="search-icon"
                         />
-                        <input type="search" name="" id="event-search-string" />
-                        <input type="submit" value="Search" className="event-search-btn" />
+                        <input type="search" onChange={filterEvents} name="" id="event-search-string" />
+                        {/* <input type="submit" value="Search" className="event-search-btn" /> */}
                     </form>
                 </div>
             </div>

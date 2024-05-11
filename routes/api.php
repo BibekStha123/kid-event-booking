@@ -39,6 +39,8 @@ Route::apiResource('/events', EventController::class);
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
-    Route::get('/google/redirect', 'redirectToGoogle');
-    Route::get('/google/callback', 'googleCallback');
+    Route::middleware('web')->group(function() {
+        Route::get('/google/redirect', 'redirectToGoogle');
+        Route::post('/google/callback', 'googleCallback');
+    });
 });

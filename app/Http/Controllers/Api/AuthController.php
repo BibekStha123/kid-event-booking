@@ -36,7 +36,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $data = $request->validated();
-        if(Auth::attempt($data)) {
+        if (Auth::attempt($data)) {
             /** @var \App\Models\User $user **/
             $user = Auth::user();
             $token = Auth::claims(['user_type' => $user->user_type])->attempt($data);
@@ -89,6 +89,23 @@ class AuthController extends Controller
 
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        return response([
+            'url' =>  Socialite::driver('google')
+                ->redirect()
+                ->getTargetUrl(),
+        ]);
+    }
+
+    public function googleCallback()
+    {
+        try {
+            $socialiteUser = Socialite::driver('google')->user();
+            return $socialiteUser;
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response([
+                'error' => $th->getMessage()
+            ]);
+        }
     }
 }

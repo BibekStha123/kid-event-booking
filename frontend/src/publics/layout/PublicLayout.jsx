@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom'
-// import '../css/main.css'
-// import '../css/events.css'
+import '../css/main.css'
+import '../css/events.css'
 import { facebook, instagram, linkedin, logo, menuClose, menuOpen, twitter, youtube } from '../../assets/icons';
 import { isAuthenticated } from '../../helpers';
 
@@ -28,7 +28,7 @@ function PublicLayout(props) {
                                 <Link to="/">Home</Link>
                             </li>
                             <li>
-                                <Link to="/events">Events</Link>
+                                <Link to="/all-events">Events</Link>
                             </li>
                             <li>
                                 <Link to="/about-us">About Us</Link>

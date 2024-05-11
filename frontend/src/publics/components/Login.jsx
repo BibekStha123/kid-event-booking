@@ -49,8 +49,15 @@ function Login(props) {
 
     }
 
-    const hanldeGoogleLogin = () => {
-        window.location.href = 'http://localhost:8000/api/google/redirect'
+    const handleGoogleLogin = () => {
+        axiosClient.get('/google/redirect')
+        .then(({data}) => {
+            toast.success("Redirecting to Google Login")
+            window.location.href = data.url
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     return (
@@ -72,7 +79,7 @@ function Login(props) {
                             <p>Not Registered? <Link to="/register">Create an account</Link></p>
                         </div>
                     </form>
-                    <button className='btn btn-outline-success mb-3' onClick={hanldeGoogleLogin}>
+                    <button className='btn btn-outline-success mb-3' onClick={handleGoogleLogin}>
                         <GoogleIcon /> &nbsp;
                         Sign Up with Google Account
                     </button>
