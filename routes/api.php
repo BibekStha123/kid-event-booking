@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\ChildrenController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\FeedbackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/update-profile/{user}', [AuthController::class, 'updateProfile']);
 });
 
+Route::apiResource('/feedback', FeedbackController::class);
 Route::apiResource('/events', EventController::class);
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');

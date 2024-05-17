@@ -45,6 +45,10 @@ export default function Sidebar() {
                     <Button component={Link} to='/children'>
                         Children
                     </Button>
+                    <br/>
+                    <Button component={Link} to='/feedback'>
+                        Provide Feedback
+                    </Button>
                 </>
             }
         </>

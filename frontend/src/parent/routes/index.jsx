@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { Bookings, Children, ChildrenForm, Dashboard, UpcomingEvents, UpdateProfile } from "../components";
+import { Bookings, Children, ChildrenForm, Dashboard, Feedback, UpcomingEvents, UpdateProfile } from "../components";
 import { Layout } from "../../shared";
 
 export default function ParentRoutes() {
@@ -12,6 +12,7 @@ export default function ParentRoutes() {
             { path: '/children', element: <Children /> },
             { path: '/add-children', element: <ChildrenForm /> },
             {path: '/update-profile', element: <UpdateProfile />},
+            {path: '/feedback', element: <Feedback />},
             { path: '*', element: <Navigate to='/' replace /> },
         ]
     }

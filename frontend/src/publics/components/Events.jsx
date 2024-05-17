@@ -26,6 +26,7 @@ function Events(props) {
 
     const filterEvents = (e) => {
         const searchKey = e.target.value;
+        console.log(e);
         if (searchKey.length === 0) {
             getEvents()
         } else {
@@ -50,8 +51,7 @@ function Events(props) {
                             alt="search icon"
                             className="search-icon"
                         />
-                        <input type="search" onChange={filterEvents} name="" id="event-search-string" />
-                        {/* <input type="submit" value="Search" className="event-search-btn" /> */}
+                        <input type="search" placeholder='Search Events' onChange={filterEvents} name="" id="event-search-string" />
                     </form>
                 </div>
             </div>
@@ -60,7 +60,7 @@ function Events(props) {
                     {
                         events.map((event, index) => {
                             return (
-                                <Link to={`/book-event/` + event.id} key={index}>
+                                <Link to={`/event/` + event.id} key={index}>
                                     <div className="event-list-card">
                                         <div className="event-list-image-card">
                                             <img src={eventImg} alt="" />

@@ -36,6 +36,7 @@ function Bookings(props) {
                             <TableCell align="right"><strong>Child Age</strong></TableCell>
                             <TableCell align="right"><strong>Special Needs</strong></TableCell>
                             <TableCell align="right"><strong>Emergency Contact</strong></TableCell>
+                            <TableCell align="right"><strong>File</strong></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -53,6 +54,11 @@ function Bookings(props) {
                                 <TableCell align="right">{booking.child_age}</TableCell>
                                 <TableCell align="right">{booking.special_needs}</TableCell>
                                 <TableCell align="right">{booking.emergency_contact_no}</TableCell>
+                                <TableCell align="right">
+                                    <a className='btn btn-outline-primary' href={`${import.meta.env.VITE_API_BASE_URL}${booking.file}`} target='_blank'>
+                                        View File
+                                    </a>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

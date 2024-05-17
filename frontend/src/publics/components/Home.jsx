@@ -3,10 +3,12 @@ import banner from "../../assets/images/banner.jpg"
 import eventImg from "../../assets/images/event.jpg"
 import { Link } from 'react-router-dom';
 import axiosClient from '../../api/axios';
+import Carousel from 'react-bootstrap/Carousel';
 
 function Home() {
 
     const [events, setEvents] = useState([])
+    const [feedbacks, setFeedbacks] = useState([])
 
     useEffect(() => {
         axiosClient.get('/events')
@@ -15,6 +17,14 @@ function Home() {
             })
             .catch((error) => {
                 console.log(error)
+            })
+
+        axiosClient.get('/feedback')
+            .then(({ data }) => {
+                setFeedbacks(data.feedbacks)
+            })
+            .catch((error) => {
+                console.log(error);
             })
     }, [])
 
@@ -49,7 +59,7 @@ function Home() {
                 {
                     events.map((event, index) => {
                         return (
-                            <a href="" key={index}>
+                            <Link to={`/event/` + event.id} key={index}>
                                 <div className="upcoming-event-one upcoming-events-card">
                                     <div className="bg-image">
                                         <img src={eventImg} alt="" />
@@ -60,7 +70,7 @@ function Home() {
                                         <p className="event-duration">Jan 1, 2024 - Jan 2, 2024</p>
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         )
                     })
                 }
@@ -68,13 +78,20 @@ function Home() {
             <section className="testimonials">
                 <div className="testimonials-title"><h2>What our Customers Think</h2></div>
                 <div className="testimonials-card">
-                    <p className="testimonials-text">
-                        “Parents Review Template, Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Pellentesque vel quam a quam dignissim placerat vel
-                        vel eros. Pellentesque ut sollicitudin nunc. Fusce faucibus leo
-                        arcu, vitae porta erat rutrum sed. Etiam commodo eros ac iaculis.“
-                    </p>
-                    <p className="testimonials-parent-name">- Parents Name</p>
+                    <Carousel>
+                        {
+                            feedbacks.map((f, index) => {
+                                return (
+                                    <Carousel.Item key={index}>
+                                        <p className="testimonials-text">
+                                            {f.feedback}
+                                        </p>
+                                        <p className="testimonials-parent-name mb-5">-{f.user.name}</p>
+                                    </Carousel.Item>
+                                )
+                            })
+                        }
+                    </Carousel>
                 </div>
             </section>
         </>
