@@ -37,6 +37,30 @@ function Events(props) {
         }
     }
 
+    const getDateTime = (date_time) => {
+
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        const date = new Date(date_time)
+        const year = date.getFullYear()
+        const monthIndex = date.getMonth();
+        const monthName = monthNames[monthIndex]
+        const day = date.getDate();
+
+        let hour = date.getHours();
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        hour = hour % 12;
+        hour = hour ? hour : 12;
+        hour = hour < 10 ? '0' + hour : hour
+        let minutes = date.getMinutes()
+        minutes = minutes < 10 ? '0' + minutes : minutes
+
+        return day + ' ' + monthName + ' ' + year + ', ' + hour + ':' + minutes + ' ' + ampm
+    }
+
     return (
 
         <main className="event-container">
@@ -60,22 +84,21 @@ function Events(props) {
                     {
                         events.map((event, index) => {
                             return (
-                                <Link to={`/event/` + event.id} key={index}>
+                                <Link to={`/event-details/` + event.id} key={index}>
                                     <div className="event-list-card">
                                         <div className="event-list-image-card">
                                             <img src={eventImg} alt="" />
                                         </div>
                                         <div className="event-list-info-card">
                                             <h2 className="event-list-name">{event.name}</h2>
-                                            <p className="event-list-price">AUD $20</p>
+                                            <p className="event-list-price">AUD ${event.amount}</p>
                                             <div className="event-list-date-time">
                                                 <div className="event-list-date-time-text">
-                                                    <img src={calendarImg} alt="" /> 15 Jan -
-                                                    Fri, 3:00 PM
+                                                    <img src={calendarImg} alt="" /> {getDateTime(event.date_time)}
                                                 </div>
-                                                <div className="event-list-duration">
+                                                {/* <div className="event-list-duration">
                                                     <img src={clockImg} alt="" /> 1h
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
@@ -84,12 +107,14 @@ function Events(props) {
                         })
                     }
                 </div>
+                <br/>
+                <br/>
                 <div className="pagination-events-page">
-                    <a href=""><div className="page-numbers">1</div></a>
+                    {/* <a href=""><div className="page-numbers">1</div></a>
                     <a href=""><div className="page-numbers">2</div></a>
                     <a href=""><div className="page-numbers">3</div></a>
                     <a href=""><div className="page-numbers">4</div></a>
-                    <a href=""><div className="page-numbers">5</div></a>
+                    <a href=""><div className="page-numbers">5</div></a> */}
                 </div>
             </div>
         </main>

@@ -15,7 +15,7 @@ export default function PublicRoutes() {
             { path: '/contact-us', element: <Contactus /> },
             { path: '/book-event/:id', element: <BookingForm /> },
             { path: '/google/callback', element: <GoogleCallback /> },
-            {path: '/event/:id', element: <Event />},
+            {path: '/event-details/:id', element: <Event />},
             { path: '*', element: <Navigate to="/" replace /> }
         ]
     }

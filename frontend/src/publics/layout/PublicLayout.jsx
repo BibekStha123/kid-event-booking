@@ -4,7 +4,7 @@ import '../css/main.css'
 import '../css/events.css'
 import '../css/eventinfo.css'
 import { facebook, instagram, linkedin, logo, menuClose, menuOpen, twitter, youtube } from '../../assets/icons';
-import { isAuthenticated } from '../../helpers';
+import { isAuthenticated, isOrganizer } from '../../helpers';
 
 function PublicLayout(props) {
     return (
@@ -38,7 +38,12 @@ function PublicLayout(props) {
                                 <Link to="/contact-us">Contact Us</Link>
                             </li>
                             {
-                                isAuthenticated() ? ''
+                                isAuthenticated() ? 
+                                <>
+                                    <li>                                        
+                                        <Link to={isOrganizer() ? '/organizer-dashboard' : '/dashboard'}>Dashboard</Link>
+                                    </li>
+                                </>
                                 :
                                 <>
                                     <li>

@@ -59,7 +59,7 @@ function Home() {
                 {
                     events.map((event, index) => {
                         return (
-                            <Link to={`/event/` + event.id} key={index}>
+                            <Link to={`/event-details/` + event.id} key={index}>
                                 <div className="upcoming-event-one upcoming-events-card">
                                     <div className="bg-image">
                                         <img src={eventImg} alt="" />
