@@ -58,8 +58,8 @@ function Event(props) {
                         <div className="event-description">
                             <div className="description-content">
                                 <img loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/f57b64076ece9ad8aa68cae4d79d46535b936bd9a9b71f982ee8af4348e2937e?apiKey=049b84acd4164b8f80eaafc13766e476&"
-                                    alt="Botanical Garden Image" className="event-image" />
+                                    src={import.meta.env.VITE_API_BASE_URL+event.file}
+                                    className="event-image" />
                                 <section className="description-box">
                                     <h3 className="description-title">About This Event</h3>
                                     <p className="description-text">

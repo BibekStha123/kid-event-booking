@@ -61,7 +61,6 @@ function BookingForm(props) {
     }
 
     const onSubmit = (data) => {
-        console.log(data.cvc);
         const payload = {
             event_id: eventRef.current.value,
             children_id: childRef.current.value,

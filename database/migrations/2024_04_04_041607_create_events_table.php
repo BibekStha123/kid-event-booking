@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('age');
             $table->string('amount');
             $table->string('description');
+            $table->string('file');
             $table->timestamps();
         });
     }

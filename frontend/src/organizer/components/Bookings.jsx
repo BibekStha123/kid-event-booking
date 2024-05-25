@@ -41,7 +41,9 @@ function Bookings(props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {bookings.map((booking, index) => (
+                    {
+                    bookings.length > 0 ?
+                    bookings.map((booking, index) => (
                         <TableRow
                             key={index}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -49,7 +51,7 @@ function Bookings(props) {
                             <TableCell component="th" scope="row">
                                 {booking.user.name}
                             </TableCell>
-                            <TableCell align="right">{booking.event.name}</TableCell>
+                            <TableCell align="right">{booking.event.name ? booking.event.name : 'll'}</TableCell>
                             <TableCell align="right">{booking.child_name}</TableCell>
                             <TableCell align="right">{booking.child_age}</TableCell>
                             <TableCell align="right">{booking.special_needs}</TableCell>
@@ -68,7 +70,11 @@ function Bookings(props) {
                                 </Button>
                             </TableCell>
                         </TableRow>
-                    ))}
+                    ))
+                    :
+                    <p className='text-center'>----No bookings made----</p>
+                
+                }
                 </TableBody>
             </Table>
         </TableContainer>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import banner from "../../assets/images/banner.jpg"
-import eventImg from "../../assets/images/event.jpg"
 import { Link } from 'react-router-dom';
 import axiosClient from '../../api/axios';
 import Carousel from 'react-bootstrap/Carousel';
@@ -43,7 +42,7 @@ function Home() {
                         the Adelaide Hills and Wittunga Botanic Garden in suburban
                         Blackwood.
                     </p>
-                    <a href=""><div className="featured-cta">Join The Event</div></a>
+                    <Link to="/all-events"><div className="featured-cta">Join The Event</div></Link>
                 </div>
             </main>
             <section className="upcoming-events">
@@ -62,7 +61,7 @@ function Home() {
                             <Link to={`/event-details/` + event.id} key={index}>
                                 <div className="upcoming-event-one upcoming-events-card">
                                     <div className="bg-image">
-                                        <img src={eventImg} alt="" />
+                                        <img src={import.meta.env.VITE_API_BASE_URL+event.file} alt="" />
                                     </div>
                                     <div className="event-date">Jan<br />1</div>
                                     <div className="event-info">

@@ -1,10 +1,24 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-function Modal({confirmPaymentDetails}) {
+function Modal({ confirmPaymentDetails }) {
+
+    const [minDate, setMinDate] = useState('')
 
     const cardRef = useRef();
     const expiryDateRef = useRef();
     const cvcRef = useRef();
+
+    useEffect(() => {
+        const today = new Date();
+
+        const formatDate = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 2).padStart(2, '0'); // Months are zero-based
+            return `${year}-${month}`;
+        };
+
+        setMinDate(formatDate(today));
+    }, [])
 
     const handlePaymentData = () => {
         confirmPaymentDetails({
@@ -16,8 +30,8 @@ function Modal({confirmPaymentDetails}) {
 
     const clearModalField = () => {
         cardRef.current.value = '',
-        expiryDateRef.current.value = '',
-        cvcRef.current.value = ''
+            expiryDateRef.current.value = '',
+            cvcRef.current.value = ''
     }
 
     return (
@@ -36,7 +50,7 @@ function Modal({confirmPaymentDetails}) {
                         <div className="row">
                             <div className="form-group col-md-6">
                                 <label>Expiry Date</label>
-                                <input type="text" ref={expiryDateRef} className="form-control" placeholder="MM/YY" required />
+                                <input type="month" min={minDate} ref={expiryDateRef} className="form-control" placeholder="MM/YY" required />
                             </div>
                             <div className="form-group col-md-6">
                                 <label>CVC</label>

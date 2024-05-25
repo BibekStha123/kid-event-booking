@@ -22,7 +22,8 @@ class EventResource extends JsonResource
             'location' => $this->location,
             'age' => $this->age,
             'amount' => $this->amount,
-            'description' => $this->description
+            'description' => $this->description,
+            'file' =>asset('storage/uploads/' . $this->file)
         ];
     }
 }

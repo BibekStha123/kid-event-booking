@@ -37,21 +37,26 @@ class EventController extends Controller
     {
         $data = $request->validated();
 
-        $event = Event::create([
-            'user_id' => Auth::id(),
-            'name' => $data['name'],
-            'date_time' => $data['date_time'],
-            'location' =>  $data['location'],
-            'age' =>  $data['age'],
-            'amount' =>  $data['amount'],
-            'description' =>  $data['description'],
-        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('uploads', $fileName, 'public');
+            $event = Event::create([
+                'user_id' => Auth::id(),
+                'name' => $data['name'],
+                'date_time' => $data['date_time'],
+                'location' =>  $data['location'],
+                'age' =>  $data['age'],
+                'amount' =>  $data['amount'],
+                'description' =>  $data['description'],
+                'file' => $fileName
+            ]);
+        }
 
         return response([
             'message' => 'Event Created Successfully.',
             'event' => $event
         ], 200);
-
     }
 
     /**

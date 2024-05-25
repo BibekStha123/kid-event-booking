@@ -87,7 +87,7 @@ function Events(props) {
                                 <Link to={`/event-details/` + event.id} key={index}>
                                     <div className="event-list-card">
                                         <div className="event-list-image-card">
-                                            <img src={eventImg} alt="" />
+                                            <img src={import.meta.env.VITE_API_BASE_URL+event.file} alt="" />
                                         </div>
                                         <div className="event-list-info-card">
                                             <h2 className="event-list-name">{event.name}</h2>

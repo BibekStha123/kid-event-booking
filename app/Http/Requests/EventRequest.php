@@ -27,7 +27,8 @@ class EventRequest extends FormRequest
             'location' => 'required',
             'age' => 'required',
             'amount' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'file' => 'required'
         ];
     }
 }

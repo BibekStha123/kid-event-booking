@@ -8,13 +8,14 @@ function EventForm(props) {
     const navigate = useNavigate()
     const { id } = useParams()
     const [event, setEvent] = useState({
-        id:null,
+        id: null,
         name: '',
         date_time: '',
         location: '',
         age: '',
         amount: '',
-        description: ''
+        description: '',
+        image: ''
     })
 
     //get event for editing only if id exist
@@ -34,7 +35,11 @@ function EventForm(props) {
         e.preventDefault()
 
         if (!id) {
-            axiosClient.post('/events', event)
+            axiosClient.post('/events', event, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
                 .then(({ data }) => {
                     toast.success(data.message)
                     navigate('/events')
@@ -43,7 +48,11 @@ function EventForm(props) {
                     console.error(error)
                 })
         } else {
-            axiosClient.put(`/events/${id}`, event)
+            axiosClient.put(`/events/${id}`, event, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
                 .then(({ data }) => {
                     toast.success(data.message)
                     navigate('/events')
@@ -85,11 +94,15 @@ function EventForm(props) {
                             <label>Description</label>
                             <textarea className="form-control" placeholder="Description" required value={event.description} onChange={ev => setEvent({ ...event, description: ev.target.value })} />
                         </div>
+                        <div className="form-group mb-3">
+                            <label>Upload Image</label>
+                            <input type="file" className="form-control" required onChange={ev => setEvent({...event, file: ev.target.files[0]})} />
+                        </div>
                         <button type="submit" className="btn btn-primary mb-3">Submit</button>
                     </form>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
 

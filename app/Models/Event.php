@@ -16,7 +16,8 @@ class Event extends Model
         'location',
         'age',
         'amount',
-        'description'
+        'description',
+        'file'
     ];
 
     public function user()
