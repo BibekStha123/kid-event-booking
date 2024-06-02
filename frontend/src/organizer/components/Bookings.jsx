@@ -30,7 +30,6 @@ function Bookings(props) {
     }, [])
 
     const deleteBooking = (bookingId) => {
-        alert(bookingId)
         if (confirm("Are you sure you want to delete?")) {
             axiosClient.delete('/bookings/' + bookingId)
                 .then(({ data }) => {

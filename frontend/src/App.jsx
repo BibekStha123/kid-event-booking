@@ -1,8 +1,14 @@
+import { useEffect } from 'react'
 import Routes from './Routes/Routes'
+import { checkTokenTime } from './helpers'
 
 function App() {
 
-  return  <Routes />
+  useEffect(() => {
+    checkTokenTime()
+  })
+
+  return <Routes />
 
 }
 

@@ -30,9 +30,9 @@ class BookingController extends Controller
         $userType = User::whereId($userId)->first()->user_type;
 
         if ($userType === "organizer") {
-            $bookings = Booking::whereDelete(0)->paginate(10);
+            $bookings = Booking::whereDelete(0)->latest()->paginate(10);
         } else {
-            $bookings = Booking::whereDelete(0)->whereUserId($userId)->paginate(10);
+            $bookings = Booking::whereDelete(0)->whereUserId($userId)->latest()->paginate(10);
         }
 
         return response([

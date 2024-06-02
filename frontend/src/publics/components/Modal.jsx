@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 function Modal({ confirmPaymentDetails }) {
 
     const [minDate, setMinDate] = useState('')
+    const [disabled, setDisabled] = useState(false)
 
     const cardRef = useRef();
     const expiryDateRef = useRef();
@@ -21,6 +22,7 @@ function Modal({ confirmPaymentDetails }) {
     }, [])
 
     const handlePaymentData = () => {
+        setDisabled(true)
         confirmPaymentDetails({
             cardNo: cardRef.current.value,
             expiryDate: expiryDateRef.current.value,
@@ -30,8 +32,8 @@ function Modal({ confirmPaymentDetails }) {
 
     const clearModalField = () => {
         cardRef.current.value = '',
-            expiryDateRef.current.value = '',
-            cvcRef.current.value = ''
+        expiryDateRef.current.value = '',
+        cvcRef.current.value = ''
     }
 
     return (
@@ -60,7 +62,7 @@ function Modal({ confirmPaymentDetails }) {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={clearModalField}>Cancel</button>
-                        <button type="button" className="btn btn-primary" onClick={handlePaymentData}>Confirm Payment</button>
+                        <button type="button" className="btn btn-primary" disabled={disabled} onClick={handlePaymentData}>Confirm Payment</button>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,9 @@
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
+import { toast } from 'react-toastify';
 
 export const isAuthenticated = () => {
     const token = localStorage.getItem("access_token");
-    if(!token) {
+    if (!token) {
         return false;
     }
 
@@ -12,10 +13,27 @@ export const isAuthenticated = () => {
 export const isOrganizer = () => {
     const token = localStorage.getItem("access_token");
     const userType = jwtDecode(token).user_type
-    if(userType === "organizer") {
+    if (userType === "organizer") {
         return true;
     } else {
         return false;
+    }
+}
+
+export const checkTokenTime = () => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+        const decodedToken = jwtDecode(token)
+        if (decodedToken.exp) {
+            const expiryTime = decodedToken.exp
+            const currentTime = Date.now() / 1000;
+
+            if (currentTime > expiryTime) {
+                localStorage.removeItem('access_token')
+                toast.success("Token Expired")
+                window.location.href = '/'
+            }
+        }
     }
 }
 

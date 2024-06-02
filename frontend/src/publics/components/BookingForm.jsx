@@ -79,7 +79,7 @@ function BookingForm(props) {
         })
             .then(({ data }) => {
                 toast.success(data.message)
-                navigate('/')
+                window.location.href = "/"
             })
             .catch(({ response }) => {
                 setErrors(response.data.errors)
