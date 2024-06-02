@@ -30,9 +30,9 @@ class BookingController extends Controller
         $userType = User::whereId($userId)->first()->user_type;
 
         if ($userType === "organizer") {
-            $bookings = Booking::paginate(10);
+            $bookings = Booking::whereDelete(0)->paginate(10);
         } else {
-            $bookings = Booking::whereUserId($userId)->paginate(10);
+            $bookings = Booking::whereDelete(0)->whereUserId($userId)->paginate(10);
         }
 
         return response([
@@ -115,9 +115,15 @@ class BookingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Booking $booking)
     {
-        //
+        Booking::whereId($booking->id)->update([
+            'delete' => true
+        ]);
+
+        return response([
+            'message' => "Booking Deleted Successfully"
+        ], 200);
     }
 
     public function upcomingEvents()

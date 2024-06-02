@@ -46,6 +46,7 @@ function Home() {
                 </div>
             </main>
             <section className="upcoming-events">
+                
                 <div className="upcoming-events-card upcoming-event-text">
                     <h2>
                         Upcoming <br />

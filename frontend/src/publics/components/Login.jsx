@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { isAuthenticated, isOrganizer } from '../../helpers';
 import GoogleIcon from '@mui/icons-material/Google';
+import initializeAxiosClient from '../../api/fetchCsrf';
 
 function Login(props) {
 
@@ -51,13 +52,14 @@ function Login(props) {
 
     const handleGoogleLogin = () => {
         axiosClient.get('/google/redirect')
-        .then(({data}) => {
-            toast.success("Redirecting to Google Login")
-            window.location.href = data.url
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+            .then(({ data }) => {
+                toast.success("Redirecting to Google Login")
+                window.location.href = data.url
+                initializeAxiosClient()
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     return (

@@ -31,7 +31,7 @@ function Parents(props) {
                         <TableCell align="right"><strong>Email</strong></TableCell>
                         <TableCell align="right"><strong>Address</strong></TableCell>
                         <TableCell align="right"><strong>Contact Number</strong></TableCell>
-                        <TableCell align="right"><strong>Actions</strong></TableCell>
+                        {/* <TableCell align="right"><strong>Actions</strong></TableCell> */}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -46,14 +46,14 @@ function Parents(props) {
                             <TableCell align="right">{parent.email}</TableCell>
                             <TableCell align="right">{parent.address}</TableCell>
                             <TableCell align="right">{parent.contact_no}</TableCell>
-                            <TableCell align="right">
+                            {/* <TableCell align="right">
                                 <Button variant="outlined" color='secondary'>
                                     Edit
                                 </Button>&nbsp;
                                 <Button variant="outlined" color='error'>
                                     Delete
                                 </Button>
-                            </TableCell>
+                            </TableCell> */}
                         </TableRow>
                     ))}
                 </TableBody>
